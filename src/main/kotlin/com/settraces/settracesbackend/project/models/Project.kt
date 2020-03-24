@@ -1,6 +1,8 @@
 package com.settraces.settracesbackend.project.models
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.settraces.settracesbackend.script.models.ScriptType
 import org.hibernate.annotations.Type
 import java.util.*
 import javax.persistence.*
@@ -22,6 +24,10 @@ class Project {
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY,
             cascade = [CascadeType.ALL])
     var scripts: Set<Script>? = null
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    var types: Set<ScriptType>? = null
 
     constructor() {}
     constructor(name: String, description: String):this() {
