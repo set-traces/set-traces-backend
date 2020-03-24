@@ -1,7 +1,7 @@
-package com.settraces.settracesbackend.security.jwt
+package com.settraces.settracesbackend.authentication.security.jwt
 
 
-import com.settraces.settracesbackend.services.UserDetailsServiceImpl
+import com.settraces.settracesbackend.authentication.services.UserDetailsServiceImpl
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

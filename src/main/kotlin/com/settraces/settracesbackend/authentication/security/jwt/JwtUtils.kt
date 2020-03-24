@@ -1,6 +1,6 @@
-package com.settraces.settracesbackend.security.jwt
+package com.settraces.settracesbackend.authentication.security.jwt
 
-import com.settraces.settracesbackend.services.UserDetailsImpl
+import com.settraces.settracesbackend.authentication.services.UserDetailsImpl
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.*
 import org.slf4j.LoggerFactory

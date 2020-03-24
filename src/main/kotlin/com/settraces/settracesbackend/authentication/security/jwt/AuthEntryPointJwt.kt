@@ -1,4 +1,4 @@
-package com.settraces.settracesbackend.security.jwt
+package com.settraces.settracesbackend.authentication.security.jwt
 
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.AuthenticationException
