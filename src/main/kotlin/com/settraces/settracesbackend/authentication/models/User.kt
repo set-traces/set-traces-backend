@@ -1,5 +1,6 @@
 package com.settraces.settracesbackend.authentication.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Email
@@ -15,7 +16,10 @@ class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var username: @NotBlank @Size(max = 20) String? = null
     var email: @NotBlank @Size(max = 50) @Email String? = null
+    @JsonIgnore
     var password: @NotBlank @Size(max = 120) String? = null
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")], inverseJoinColumns = [JoinColumn(name = "role_id")])
     var roles: Set<Role> = HashSet()
