@@ -1,6 +1,6 @@
-package com.settraces.settracesbackend.repository
+package com.settraces.settracesbackend.authentication.repository
 
-import com.settraces.settracesbackend.models.User;
+import com.settraces.settracesbackend.authentication.models.User;
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
