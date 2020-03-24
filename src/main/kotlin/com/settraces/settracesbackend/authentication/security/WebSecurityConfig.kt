@@ -1,8 +1,8 @@
-package com.settraces.settracesbackend.security
+package com.settraces.settracesbackend.authentication.security
 
-import com.settraces.settracesbackend.security.jwt.AuthEntryPointJwt
-import com.settraces.settracesbackend.security.jwt.AuthTokenFilter
-import com.settraces.settracesbackend.services.UserDetailsServiceImpl
+import com.settraces.settracesbackend.authentication.security.jwt.AuthEntryPointJwt
+import com.settraces.settracesbackend.authentication.security.jwt.AuthTokenFilter
+import com.settraces.settracesbackend.authentication.services.UserDetailsServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -57,6 +57,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .authorizeRequests()
                 .antMatchers("/auth/api/**").permitAll()
                 .antMatchers("/auth/test/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter::class.java)
     }
