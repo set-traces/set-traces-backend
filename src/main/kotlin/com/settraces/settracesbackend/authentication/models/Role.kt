@@ -1,6 +1,5 @@
-package com.settraces.settracesbackend.models
+package com.settraces.settracesbackend.authentication.models
 
-import com.settraces.settracesbackend.models.ERole
 import javax.persistence.*
 
 @Entity

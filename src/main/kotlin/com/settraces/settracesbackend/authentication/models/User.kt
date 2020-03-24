@@ -1,6 +1,5 @@
-package com.settraces.settracesbackend.models
+package com.settraces.settracesbackend.authentication.models
 
-import com.settraces.settracesbackend.models.Role
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Email
