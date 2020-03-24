@@ -1,4 +1,4 @@
-package com.settraces.settracesbackend.payload.request
+package com.settraces.settracesbackend.authentication.payload.request
 
 import javax.validation.constraints.NotBlank
 
