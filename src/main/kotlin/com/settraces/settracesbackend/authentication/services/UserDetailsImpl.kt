@@ -1,10 +1,9 @@
-package com.settraces.settracesbackend.services
+package com.settraces.settracesbackend.authentication.services
 
-import com.settraces.settracesbackend.models.Role
-import org.springframework.security.core.GrantedAuthority;
+import com.settraces.settracesbackend.authentication.models.Role
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.settraces.settracesbackend.models.User;
+import com.settraces.settracesbackend.authentication.models.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank

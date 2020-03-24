@@ -1,8 +1,8 @@
-package com.settraces.settracesbackend.services
+package com.settraces.settracesbackend.authentication.services
 
 
-import com.settraces.settracesbackend.models.User
-import com.settraces.settracesbackend.repository.UserRepository
+import com.settraces.settracesbackend.authentication.models.User
+import com.settraces.settracesbackend.authentication.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
