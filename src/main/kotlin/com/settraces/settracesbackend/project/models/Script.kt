@@ -24,8 +24,9 @@ class Script {
     @JsonIgnore
     var scriptType: ScriptType? = null
 
-    @JsonIgnore
-    var lines: List<Line>? = null
+    var lines: List<Line>? = arrayListOf(Line("Forteller", "REMARK", "Dette funker dritbra"), Line("Regissor", "REMARK", "Dette er helt utrolig. Hvordan har ingen laget noe slikt før? Og se på den froentenden a!! Det er som å se seg selv i speilet #selvskryt #karantenetrening"))
+
+    var rolesMeta: List<RoleMeta> = arrayListOf(RoleMeta("Forteller", "Sitter bak lukket vindu", "Asgeir"), RoleMeta("Regissor", "Sitter blant publikum og er dyktig imponert", "Jonathan"))
 
     constructor(id: String, name: String, description: String, type: String, projectId: String, scriptTypeId: String) {
         this.id = id
