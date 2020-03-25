@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS actors (
     CONSTRAINT pkey_actors PRIMARY KEY ( id )
 );
 
-CREATE TABLE playing_roles (
+CREATE TABLE IF NOT EXISTS playing_roles (
     id UUID NOT NULL DEFAULT uuid_generate_v4(),
     role varchar(100),
     actor_id uuid,
@@ -20,7 +20,7 @@ CREATE TABLE playing_roles (
 );
 
 
-CREATE TABLE lines (
+CREATE TABLE IF NOT EXISTS lines (
     id UUID NOT NULL DEFAULT uuid_generate_v4(),
     type varchar(45) default 'REMARK',
     text TEXT,
