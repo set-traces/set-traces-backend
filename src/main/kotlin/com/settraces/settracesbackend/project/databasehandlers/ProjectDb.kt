@@ -1,9 +1,6 @@
 package com.settraces.settracesbackend.project.databasehandlers
 
-import com.settraces.settracesbackend.project.mappers.LineMapper
-import com.settraces.settracesbackend.project.mappers.ProjectMapper
-import com.settraces.settracesbackend.project.mappers.ScriptMapper
-import com.settraces.settracesbackend.project.mappers.ScriptTypeMapper
+import com.settraces.settracesbackend.project.mappers.*
 import com.settraces.settracesbackend.project.models.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -62,7 +59,7 @@ class ProjectDb {
     }
 
     fun getRoleMeta(script: Script): List<RoleMeta> {
-        return namedParameterJdbcTemplate!!.query();
+        return namedParameterJdbcTemplate!!.query("select * from playing_roles pr inner join actors a on a.id = pr.actor_id where pr.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), RoleMetaMapper())
     }
 
 }
