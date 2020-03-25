@@ -31,3 +31,10 @@ tasks.withType<KotlinCompile> {
 		jvmTarget = "1.8"
 	}
 }
+
+tasks.register("migrate") {
+	doLast {
+		println("migrating")
+
+	}
+}

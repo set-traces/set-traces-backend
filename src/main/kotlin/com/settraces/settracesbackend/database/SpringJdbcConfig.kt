@@ -3,6 +3,7 @@ package com.settraces.settracesbackend.database
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 import javax.sql.DataSource
 
@@ -19,4 +20,11 @@ class SpringJdbcConfig {
         dataSource.password = "devpass"
         return dataSource
     }
+
+    @Bean
+    fun getNJdbcTemplate(): NamedParameterJdbcTemplate {
+        val dataSource: DataSource = mysqlDataSource()
+        return NamedParameterJdbcTemplate(dataSource!!)
+    }
+
 }
