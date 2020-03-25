@@ -4,10 +4,7 @@ import com.settraces.settracesbackend.project.mappers.LineMapper
 import com.settraces.settracesbackend.project.mappers.ProjectMapper
 import com.settraces.settracesbackend.project.mappers.ScriptMapper
 import com.settraces.settracesbackend.project.mappers.ScriptTypeMapper
-import com.settraces.settracesbackend.project.models.Line
-import com.settraces.settracesbackend.project.models.Project
-import com.settraces.settracesbackend.project.models.Script
-import com.settraces.settracesbackend.project.models.ScriptType
+import com.settraces.settracesbackend.project.models.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.jdbc.core.JdbcTemplate
@@ -62,6 +59,10 @@ class ProjectDb {
 
     fun getLines(script: Script): List<Line> {
         return namedParameterJdbcTemplate!!.query("select * from lines l inner join playing_roles pr on pr.id = l.prole_id where l.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), LineMapper())
+    }
+
+    fun getRoleMeta(script: Script): List<RoleMeta> {
+        return namedParameterJdbcTemplate!!.query();
     }
 
 }
