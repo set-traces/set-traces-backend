@@ -24,7 +24,7 @@ class Script {
     @JsonIgnore
     var scriptType: ScriptType? = null
 
-    var lines: List<Line>? = arrayListOf(Line("Forteller", "REMARK", "Dette funker dritbra"), Line("Regissor", "REMARK", "Dette er helt utrolig. Hvordan har ingen laget noe slikt før? Og se på den froentenden a!! Det er som å se seg selv i speilet #selvskryt #karantenetrening"))
+    var lines: List<Line>? = null
 
     var rolesMeta: List<RoleMeta> = arrayListOf(RoleMeta("Forteller", "Sitter bak lukket vindu", "Asgeir"), RoleMeta("Regissor", "Sitter blant publikum og er dyktig imponert", "Jonathan"))
 
