@@ -1,5 +1,6 @@
 package com.settraces.settracesbackend.project.databasehandlers
 
+import com.settraces.settracesbackend.project.mappers.LineMapper
 import com.settraces.settracesbackend.project.mappers.ProjectMapper
 import com.settraces.settracesbackend.project.mappers.ScriptMapper
 import com.settraces.settracesbackend.project.mappers.ScriptTypeMapper
@@ -60,9 +61,7 @@ class ProjectDb {
     }
 
     fun getLines(script: Script): List<Line> {
-        //
-        // return namedParameterJdbcTemplate("select id, type, text")
-        return arrayListOf()
+        return namedParameterJdbcTemplate!!.query("select * from lines l inner join playing_roles pr on pr.id = l.prole_id where l.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), LineMapper())
     }
 
 }
