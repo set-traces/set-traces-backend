@@ -36,21 +36,28 @@ class Migrate {
         var statements: ArrayList<String> = ArrayList()
         var statement = ""
         File("src/main/kotlin/com/settraces/settracesbackend/database/migrations/$fileName").forEachLine {
-            statement += it.trimIndent()
-            if (";" in it) {
-                statements.add(statement)
-                statement = ""
+            if ("--" !in it) {
+                statement += it.trimIndent()
+                if (";" in it) {
+                    statements.add(statement)
+                    statement = ""
+                }
             }
         }
         return statements
     }
 
     fun call(sql: String) {
-        val config: SpringJdbcConfig = SpringJdbcConfig()
-        val datasource: DataSource = config.mysqlDataSource()
-        val conn: Connection = datasource.connection
-        val statement: PreparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-        statement.execute()
+        try {
+            val config: SpringJdbcConfig = SpringJdbcConfig()
+            val datasource: DataSource = config.mysqlDataSource()
+            val conn: Connection = datasource.connection
+            val statement: PreparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+            statement.execute()
+        } catch(e: Exception) {
+            println(e)
+            throw MigrationException(sql, e)
+        }
     }
 
 

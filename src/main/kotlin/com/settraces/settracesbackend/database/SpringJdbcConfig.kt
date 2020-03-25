@@ -15,9 +15,13 @@ class SpringJdbcConfig {
     fun mysqlDataSource(): DataSource {
         val dataSource = DriverManagerDataSource()
         //dataSource.setDriverClassName("com.mysql.jdbc.Driver") // should change to postgres driver
-        dataSource.url = "jdbc:postgresql://localhost:5432/settraces"
-        dataSource.username = "settracesdev"
-        dataSource.password = "devpass"
+        //dataSource.url = "jdbc:postgresql://localhost:5432/stdev" // jdbc:postgresql://localhost:5432/settraces
+        //dataSource.username = "settracesdev"
+        //dataSource.password = "devpass"
+
+        dataSource.url = "jdbc:postgresql://settraces-dev-1.czlmbjejpdry.eu-west-1.rds.amazonaws.com:5432/settracesdev"
+        dataSource.password = "QmaOoasl9ZEGJseD9pZ4"
+        dataSource.username = "settraces"
         return dataSource
     }
 

@@ -9,7 +9,7 @@ class SetTracesBackendApplication
 
 fun main(args: Array<String>) {
 	runApplication<SetTracesBackendApplication>(*args)
-	val shouldMigrate: Boolean = true // set true to make migrations NB! Never change in production
+	val shouldMigrate: Boolean = false // set true to make migrations NB! Never change in production
 	if (shouldMigrate) {
 		val migration_manager: Migrate = Migrate()
 		migration_manager.migrate()
