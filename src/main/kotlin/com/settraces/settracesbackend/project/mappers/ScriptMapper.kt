@@ -14,6 +14,7 @@ class ScriptMapper(val projectDb: ProjectDb, val project: Project) : RowMapper<S
         var script: Script =  Script(rs.getString("id"), rs.getString("name"), rs.getString("description"), rs.getString("type"), rs.getString("project_id"), rs.getString("script_type_id"))
         script.project = project
         script.scriptType = ScriptType(rs.getString("script_type_id"), rs.getString("type"), rs.getString("project_id"))
+        script.lines = projectDb.getLines(script);
         return script
     }
 }

@@ -3,6 +3,7 @@ package com.settraces.settracesbackend.project.databasehandlers
 import com.settraces.settracesbackend.project.mappers.ProjectMapper
 import com.settraces.settracesbackend.project.mappers.ScriptMapper
 import com.settraces.settracesbackend.project.mappers.ScriptTypeMapper
+import com.settraces.settracesbackend.project.models.Line
 import com.settraces.settracesbackend.project.models.Project
 import com.settraces.settracesbackend.project.models.Script
 import com.settraces.settracesbackend.project.models.ScriptType
@@ -58,5 +59,10 @@ class ProjectDb {
         return namedParameterJdbcTemplate!!.query("select s.id, s.name, s.description, s.project_id, s.script_type_id, st.name as type from scripts s INNER JOIN script_types st ON s.script_type_id = st.id WHERE s.project_id=uuid(:id)", MapSqlParameterSource().addValue("id", project.id), ScriptMapper(this, project))
     }
 
+    fun getLines(script: Script): List<Line> {
+        //
+        // return namedParameterJdbcTemplate("select id, type, text")
+        return arrayListOf()
+    }
 
 }
