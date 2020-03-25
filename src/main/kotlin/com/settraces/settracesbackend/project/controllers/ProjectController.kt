@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 
+@CrossOrigin(origins = ["*"], maxAge = 3600)
 @RestController
 @RequestMapping("/project")
 class ProjectController {
@@ -25,11 +26,9 @@ class ProjectController {
 
     @GetMapping("/{projectId}/script/{scriptId}")
     fun get(@PathVariable(value = "projectId") projectId: String, @PathVariable(value="scriptId") scriptId: String): Any? {
-
 //        var script: Script = Script("", "name", "desc", "typ", "", "")
         var script = projectDb!!.getScriptById(projectId, scriptId)
         return ScriptResponse(script!!)
-
     }
 
 }
