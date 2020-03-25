@@ -58,7 +58,7 @@ class ProjectDb {
         return namedParameterJdbcTemplate!!.query("select * from lines l inner join playing_roles pr on pr.id = l.prole_id where l.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), LineMapper())
     }
 
-    fun getRoleMeta(script: Script): List<RoleMeta> {
+    fun getRolesMeta(script: Script): List<RoleMeta> {
         return namedParameterJdbcTemplate!!.query("select * from playing_roles pr inner join actors a on a.id = pr.actor_id where pr.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), RoleMetaMapper())
     }
 
