@@ -24,6 +24,8 @@ SET default_table_access_method = heap;
 -- Name: project_users; Type: TABLE; Schema: public; Owner: settracesdev
 --
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE public.project_users (
     project_id uuid NOT NULL,
     user_id uuid NOT NULL
@@ -89,7 +91,7 @@ ALTER TABLE public.script_types OWNER TO settracesdev;
 --
 
 CREATE TABLE public.scripts (
-    id uuid NOT NULL,
+    id uuid NOT NULL unique default uuid_generate_v4(),
     description text,
     name character varying(255),
     project_id uuid NOT NULL,

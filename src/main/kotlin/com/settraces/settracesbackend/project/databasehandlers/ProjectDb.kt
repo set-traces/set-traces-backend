@@ -2,6 +2,7 @@ package com.settraces.settracesbackend.project.databasehandlers
 
 import com.settraces.settracesbackend.project.mappers.*
 import com.settraces.settracesbackend.project.models.*
+import com.settraces.settracesbackend.project.payload.request.NewScriptRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.jdbc.core.JdbcTemplate
@@ -60,6 +61,18 @@ class ProjectDb {
 
     fun getRolesMeta(script: Script): List<RoleMeta> {
         return namedParameterJdbcTemplate!!.query("select * from playing_roles pr inner join actors a on a.id = pr.actor_id where pr.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), RoleMetaMapper())
+    }
+
+    fun newScript(nsr: NewScriptRequest) {
+        //return namedParameterJdbcTemplate!!.update("insert into scripts(description", MapSqlParameterSource().addValue("scriptid"))
+        val data: HashMap<String, Any?> = HashMap<String, Any?>()
+        data.put("name", nsr.name)
+        data.put("projectid", nsr.projectId)
+        data.put("typeid", nsr.typeId)
+        data.put("desc", nsr.description)
+        var result: Int = namedParameterJdbcTemplate!!.update("insert into scripts(name, project_id, script_type_id, description) values (:name, uuid(:projectid), uuid(:typeid), :desc)", data)
+//        var result: Int = namedParameterJdbcTemplate!!.update("insert into test(val1, val2) values (:one, :two)", data)
+        println(result)
     }
 
 }

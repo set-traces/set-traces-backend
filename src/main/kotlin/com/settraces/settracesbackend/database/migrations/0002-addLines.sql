@@ -1,7 +1,6 @@
 
 
 -- creating table for actor lines
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS actors (
     id UUID NOT NULL DEFAULT uuid_generate_v4(),
