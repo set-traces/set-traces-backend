@@ -14,13 +14,21 @@ import javax.sql.DataSource
 
 
 @Component
-class Migrate {
+class Migrate() {
+
+    var abs: String = "src/main/kotlin/com/settraces/settracesbackend/database/"
+
+    init {
+        if (System.getenv("environment") != null && System.getenv("environment") == "Docker") {
+            abs = ""
+        }
+    }
 
     fun readDir(): List<String> {
         val files: ArrayList<String> = ArrayList()
-        File("src/main/kotlin/com/settraces/settracesbackend/database/migrations/").walk().forEach{
+        File("${abs}migrations/").walk().forEach{
             try {
-                var fileName: String = it.toString().split("src/main/kotlin/com/settraces/settracesbackend/database/migrations/")[1]
+                var fileName: String = it.toString().split("${abs}migrations/")[1]
                 if (!fileName.equals("setup.sql")) {
                     files.add(fileName)
                 }
@@ -33,9 +41,11 @@ class Migrate {
     }
 
     fun readFile(fileName: String): List<String> {
-        var statements: ArrayList<String> = ArrayList()
+        val statements: ArrayList<String> = ArrayList()
         var statement = ""
-        File("src/main/kotlin/com/settraces/settracesbackend/database/migrations/$fileName").forEachLine {
+
+
+        File("${abs}migrations/$fileName").forEachLine {
             if ("--" !in it) {
                 statement += it.trimIndent()
                 if (";" in it) {

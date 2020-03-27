@@ -15,13 +15,27 @@ class SpringJdbcConfig {
     fun mysqlDataSource(): DataSource {
         val dataSource = DriverManagerDataSource()
         //dataSource.setDriverClassName("com.mysql.jdbc.Driver") // keep commented when chaging dev env // should change to postgres driver
-//        dataSource.url = "jdbc:postgresql://localhost:5432/stdev" // jdbc:postgresql://localhost:5432/settraces
-//        dataSource.username = "settracesdev"
-//        dataSource.password = "devpass"
 
-        dataSource.url = "jdbc:postgresql://settraces-dev-1.czlmbjejpdry.eu-west-1.rds.amazonaws.com:5432/settracesdev"
-        dataSource.password = "QmaOoasl9ZEGJseD9pZ4"
-        dataSource.username = "settraces"
+
+
+        // managed
+//        dataSource.url = "jdbc:postgresql://settraces-dev-1.czlmbjejpdry.eu-west-1.rds.amazonaws.com:5432/settracesdev"
+//        dataSource.password = "QmaOoasl9ZEGJseD9pZ4"
+//        dataSource.username = "settraces"
+
+        if (System.getenv("environment") != null && System.getenv("environment").equals("Docker")) { // docker
+            println("using docker db")
+            dataSource.url = "jdbc:postgresql://database:5432/settraces" // jdbc:postgresql://localhost:5432/settraces
+            dataSource.username = "settracesdev"
+            dataSource.password = "devpass"
+        } else {        // local
+            println("using local db")
+            dataSource.url = "jdbc:postgresql://localhost:5432/stdev" // jdbc:postgresql://localhost:5432/settraces
+            dataSource.username = "settracesdev"
+            dataSource.password = "devpass"
+        }
+
+
         return dataSource
     }
 
