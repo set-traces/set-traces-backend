@@ -110,7 +110,7 @@ ALTER TABLE public.scripts OWNER TO settracesdev;
 
 CREATE TABLE public.user_roles (
     user_id uuid NOT NULL,
-    role_id integer NOT NULL
+    role_id uuid NOT NULL
 );
 
 
