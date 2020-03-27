@@ -53,7 +53,7 @@ ALTER TABLE public.projects OWNER TO settracesdev;
 --
 
 CREATE TABLE public.roles (
-    id integer NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+    id uuid NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     name character varying(20),
     PRIMARY KEY (id)
 );
