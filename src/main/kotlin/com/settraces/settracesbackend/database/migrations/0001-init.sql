@@ -39,9 +39,10 @@ ALTER TABLE public.project_users OWNER TO settracesdev;
 --
 
 CREATE TABLE public.projects (
-    id uuid NOT NULL,
+    id uuid NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     description text,
-    name character varying(255)
+    name character varying(255),
+    PRIMARY KEY (id)
 );
 
 
@@ -52,8 +53,9 @@ ALTER TABLE public.projects OWNER TO settracesdev;
 --
 
 CREATE TABLE public.roles (
-    id integer NOT NULL,
-    name character varying(20)
+    id integer NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+    name character varying(20),
+    PRIMARY KEY (id)
 );
 
 
@@ -78,9 +80,10 @@ ALTER TABLE public.roles OWNER TO settracesdev;
 --
 
 CREATE TABLE public.script_types (
-    id uuid NOT NULL,
+    id uuid NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     name character varying(255),
-    project_id uuid NOT NULL
+    project_id uuid NOT NULL,
+    PRIMARY KEY (id)
 );
 
 
@@ -120,8 +123,9 @@ ALTER TABLE public.user_roles OWNER TO settracesdev;
 CREATE TABLE public.users (
     id uuid NOT NULL,
     email character varying(255),
-    password character varying(255),
-    username character varying(255)
+    password character varying(255) UNIQUE,
+    username character varying(255) UNIQUE,
+    PRIMARY KEY (id)
 );
 
 
@@ -146,42 +150,42 @@ ALTER TABLE ONLY public.project_users ADD CONSTRAINT project_users_pkey PRIMARY 
 -- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.projects ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY public.projects ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.roles ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY public.roles ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: script_types script_types_pkey; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.script_types ADD CONSTRAINT script_types_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY public.script_types ADD CONSTRAINT script_types_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: scripts scripts_pkey; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.scripts ADD CONSTRAINT scripts_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY public.scripts ADD CONSTRAINT scripts_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: users uk6dotkott2kjsp8vw4d0m25fb7; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.users ADD CONSTRAINT uk6dotkott2kjsp8vw4d0m25fb7 UNIQUE (email);
+-- ALTER TABLE ONLY public.users ADD CONSTRAINT uk6dotkott2kjsp8vw4d0m25fb7 UNIQUE (email);
 
 
 --
 -- Name: users ukr43af9ap4edm43mmtq01oddj6; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.users ADD CONSTRAINT ukr43af9ap4edm43mmtq01oddj6 UNIQUE (username);
+-- ALTER TABLE ONLY public.users ADD CONSTRAINT ukr43af9ap4edm43mmtq01oddj6 UNIQUE (username);
 
 
 --
@@ -195,7 +199,7 @@ ALTER TABLE ONLY public.user_roles ADD CONSTRAINT user_roles_pkey PRIMARY KEY (u
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: settracesdev
 --
 
-ALTER TABLE ONLY public.users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY public.users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
