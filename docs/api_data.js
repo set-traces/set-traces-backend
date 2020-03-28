@@ -11,7 +11,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/project/type/",
+    "url": "/project/{projectId}/type/",
     "title": "Create new script type (sketch, song, etc)",
     "name": "Create_new_script_type_(sketch,_song,_etc)",
     "group": "project",

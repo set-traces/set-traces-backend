@@ -54,7 +54,7 @@ class ProjectController {
     }
 
     /**
-     * @api {post} /project/type/ Create new script type (sketch, song, etc)
+     * @api {post} /project/{projectId}/type/ Create new script type (sketch, song, etc)
      * @apiName Create new script type (sketch, song, etc)
      * @apiGroup project
      *
