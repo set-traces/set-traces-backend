@@ -6,14 +6,8 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider
 import com.settraces.settracesbackend.project.databasehandlers.ProjectDb
 import com.settraces.settracesbackend.project.databasehandlers.ScriptDb
 import com.settraces.settracesbackend.project.databasehandlers.ScriptTypeDb
-import com.settraces.settracesbackend.project.models.Project
-import com.settraces.settracesbackend.project.models.RoleMeta
-import com.settraces.settracesbackend.project.models.Script
-import com.settraces.settracesbackend.project.models.ScriptType
-import com.settraces.settracesbackend.project.payload.request.NewProjectRequest
-import com.settraces.settracesbackend.project.payload.request.NewScriptRequest
-import com.settraces.settracesbackend.project.payload.request.NewScriptRoleRequest
-import com.settraces.settracesbackend.project.payload.request.NewScriptTypeRequest
+import com.settraces.settracesbackend.project.models.*
+import com.settraces.settracesbackend.project.payload.request.*
 import com.settraces.settracesbackend.project.payload.resposne.CreateScriptResponse
 import com.settraces.settracesbackend.project.payload.resposne.ScriptResponse
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,23 +29,52 @@ class ProjectController {
     @Autowired
     val scriptDb: ScriptDb? = null
 
+    /**
+     * @api {get} /project/ Get all projects
+     * @apiName All Projects
+     * @apiGroup project
+     */
     @GetMapping("/")
     fun getAll(): List<Project> {
         return projectDb!!.getAll()
     }
 
+    /**
+     * @api {post} /project/ Create new project
+     * @apiName Create project
+     * @apiGroup project
+     *
+     * @apiParam {String} name
+     * @apiParam {String} description
+     */
     @PostMapping("")
     fun newProject(@RequestBody newProjectRequest: @Valid NewProjectRequest): Project? {
         val project: Project = Project(newProjectRequest.name, newProjectRequest.description)
         return projectDb!!.create(project)
     }
 
+    /**
+     * @api {post} /project/type/ Create new script type (sketch, song, etc)
+     * @apiName Create new script type (sketch, song, etc)
+     * @apiGroup project
+     *
+     * @apiParam {String} name
+     */
     @PostMapping("/{projectId}/type/")
     fun insertScriptType(@PathVariable(value="projectId") projectId: String, @RequestBody newScriptTypeRequest: NewScriptTypeRequest): ScriptType? {
         val scriptType: ScriptType = ScriptType(newScriptTypeRequest.name, projectId)
         return scriptTypeDb!!.create(scriptType)
     }
 
+    /**
+     * @api {post} /project/{{projectId}}/script/ Create new script
+     * @apiName Create new script
+     * @apiGroup script
+     *
+     * @apiParam {String} name Name of script
+     * @apiParam {String} typeId Id of type (id of sketch, song, etc)
+     * @apiParam {String} description Description of script
+     */
     @PostMapping("/{projectId}/script/")
     fun insertScript(@PathVariable(value="projectId") projectId: String, @RequestBody newScriptRequest: @Valid NewScriptRequest): Any? {
         return try {
@@ -64,21 +87,52 @@ class ProjectController {
         }
     }
 
-    @GetMapping("/{projectId}/script/{scriptId}")
+    /**
+     * @api {get} /project/{{projectId}}/script/{{scriptId}} Get script by id
+     * @apiName Get all scripts
+     * @apiGroup script
+     */
+    @GetMapping("/{projectId}/script/{scriptId}/")
     fun get(@PathVariable(value = "projectId") projectId: String, @PathVariable(value="scriptId") scriptId: String): Any? {
 //        var script: Script = Script("", "name", "desc", "typ", "", "")
         var script = projectDb!!.getScriptById(projectId, scriptId)
         return ScriptResponse(script!!)
     }
 
+    /**
+     * @api {post} /project/{{projectId}}/script/{{scriptId}}/role/ Create new role in script
+     * @apiName Create new role for script
+     * @apiGroup script
+     *
+     * @apiParam {String} role Name of role
+     * @apiParam {String} [actorId] Id of the actor
+     * @apiParam {String} [description] Describe the role (costumes and so on)
+     */
     @PostMapping("/{projectId}/script/{scriptId}/role/")
     fun newRole(@PathVariable(value="projectId") projectId: String, @PathVariable(value="scriptId") scriptId: String, @RequestBody newScriptRoleRequest: @Valid NewScriptRoleRequest): RoleMeta {
         var desc = newScriptRoleRequest.description
         if (desc == null) {
             desc = ""
         }
-        return scriptDb!!.newRole(RoleMeta(newScriptRoleRequest.role, desc, newScriptRoleRequest.actorId, scriptId, ""))
 
+        return scriptDb!!.newRole(RoleMeta(newScriptRoleRequest.role, desc, newScriptRoleRequest.actorId, scriptId, "", ""))
+    }
+
+    /**
+     * @api {post} /project/{{projectId}}/script/{{scriptId}}/line/  Create new line in script
+     * @apiName Create new line in script
+     * @apiGroup script
+     *
+     * @apiParam {String} type Type of line - REMARK or ACTION
+     * @apiParam {String} text What's being said
+     * @apiParam {String} [roleId] Id of the role performing the line
+     * @apiParam {Integer} [ordering] Placement of the line, if unset, added to end of script
+     */
+    @PostMapping("/{projectId}/script/{scriptId}/line/")
+    fun newRole(@PathVariable(value="projectId") projectId: String, @PathVariable(value="scriptId") scriptId: String,
+    @RequestBody newLineRequest: @Valid NewLineRequest): Line? {
+        val inputLine: Line = Line(newLineRequest.type, newLineRequest.text, newLineRequest.roleId, scriptId, newLineRequest.ordering)
+        return scriptDb!!.newLine(inputLine)
     }
 
 }

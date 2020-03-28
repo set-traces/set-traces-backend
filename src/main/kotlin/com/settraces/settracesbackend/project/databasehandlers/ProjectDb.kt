@@ -76,7 +76,7 @@ class ProjectDb {
     }
 
     fun getLines(script: Script): List<Line> {
-        return namedParameterJdbcTemplate!!.query("select * from lines l inner join playing_roles pr on pr.id = l.prole_id where l.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), LineMapper())
+        return namedParameterJdbcTemplate!!.query("select * from lines l left join playing_roles pr on pr.id = l.prole_id where l.script_id=uuid(:scriptid) order by l.ordering", MapSqlParameterSource().addValue("scriptid", script.id), LineMapper())
     }
 
     fun getRolesMeta(script: Script): List<RoleMeta> {

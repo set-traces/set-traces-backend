@@ -1,0 +1,7 @@
+{
+  "name": "settraces-backend",
+  "version": "0.1.0",
+  "description": "APIs for our backend",
+  "title": "Set traces backend api docs",
+  "url" : "/api"
+}

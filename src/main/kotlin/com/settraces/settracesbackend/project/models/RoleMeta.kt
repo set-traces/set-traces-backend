@@ -2,7 +2,7 @@ package com.settraces.settracesbackend.project.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 
-class RoleMeta(var role: String, var description: String, var actor: String?, var actorId: String?) {
+class RoleMeta(var role: String, var description: String, var actor: String?, var actorId: String?, var id: String?) { // used by mapper
 
     @JsonIgnore
     var scriptId: String? = null
@@ -14,13 +14,16 @@ class RoleMeta(var role: String, var description: String, var actor: String?, va
         }
     }
 
-    constructor(
+    constructor( // used by create new role
             role: String,
             description: String,
             actorId: String?,
             scriptId: String,
-            actor: String
-    ) : this(role, description, actor, actorId) {
+            actor: String,
+            roleMapperId: String?
+    ) : this(role, description, actor, actorId, roleMapperId) {
+        println("this is scriptId")
+        println(scriptId)
         this.scriptId = scriptId
     }
 }

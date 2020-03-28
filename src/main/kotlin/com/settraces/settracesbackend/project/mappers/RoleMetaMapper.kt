@@ -6,6 +6,6 @@ import java.sql.ResultSet
 
 class RoleMetaMapper : RowMapper<RoleMeta> {
     override fun mapRow(rs: ResultSet, rowNum: Int): RoleMeta? {
-        return RoleMeta(rs.getString("role"), rs.getString("description"), rs.getString("actor"), rs.getString("actor_id"))
+        return RoleMeta(rs.getString("role"), rs.getString("description"), rs.getString("actor"), rs.getString("actor_id"), rs.getString("id"))
     }
 }
