@@ -1,5 +1,6 @@
 package com.settraces.settracesbackend.project.databasehandlers
 
+import com.settraces.settracesbackend.database.ParamHolder
 import com.settraces.settracesbackend.project.mappers.*
 import com.settraces.settracesbackend.project.models.*
 import com.settraces.settracesbackend.project.payload.request.NewScriptRequest
@@ -8,9 +9,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
+import org.springframework.jdbc.support.GeneratedKeyHolder
+import org.springframework.jdbc.support.KeyHolder
 import org.springframework.stereotype.Component
-import java.sql.ResultSet
 import java.sql.SQLException
+import javax.annotation.processing.Generated
 
 
 @Component
@@ -32,6 +35,23 @@ class ProjectDb {
             jdbcTemplate!!.query("select * from projects", ProjectMapper(this))
         } catch (e: SQLException) {
             ArrayList()
+        }
+    }
+
+    fun create(project: Project): Project? {
+        return try {
+            val data: HashMap<String, String> = HashMap<String, String>()
+            val keyHolder: KeyHolder = GeneratedKeyHolder()
+            data.put("name", project.name.toString())
+            data.put("description", project.description.toString())
+            val result: Int = namedParameterJdbcTemplate!!.update("insert into projects (name, description) values (:name, :description)", ParamHolder().addValue("name", project.name).addValue("description", project.description), keyHolder) // should include created by
+            val id: String = keyHolder.keyList.get(0).get("id").toString()
+            project.id = id
+            project
+        } catch (e: Exception) {
+            println(e)
+            println("got an exception")
+            null
         }
     }
 
@@ -60,19 +80,21 @@ class ProjectDb {
     }
 
     fun getRolesMeta(script: Script): List<RoleMeta> {
-        return namedParameterJdbcTemplate!!.query("select * from playing_roles pr inner join actors a on a.id = pr.actor_id where pr.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), RoleMetaMapper())
+        return namedParameterJdbcTemplate!!.query("select * from playing_roles pr left join actors a on a.id = pr.actor_id where pr.script_id=uuid(:scriptid)", MapSqlParameterSource().addValue("scriptid", script.id), RoleMetaMapper())
     }
 
-    fun newScript(nsr: NewScriptRequest) {
+    fun newScript(script: Script): Script {
         //return namedParameterJdbcTemplate!!.update("insert into scripts(description", MapSqlParameterSource().addValue("scriptid"))
-        val data: HashMap<String, Any?> = HashMap<String, Any?>()
-        data.put("name", nsr.name)
-        data.put("projectid", nsr.projectId)
-        data.put("typeid", nsr.typeId)
-        data.put("desc", nsr.description)
-        var result: Int = namedParameterJdbcTemplate!!.update("insert into scripts(name, project_id, script_type_id, description) values (:name, uuid(:projectid), uuid(:typeid), :desc)", data)
+        val keyHolder: KeyHolder = GeneratedKeyHolder()
+        val data: ParamHolder = ParamHolder()
+        data.addValue("name", script.name)
+        data.addValue("projectId", script.projectId)
+        data.addValue("typeId", script.scriptTypeId)
+        data.addValue("desc", script.description)
+        var result: Int = namedParameterJdbcTemplate!!.update("insert into scripts(name, project_id, script_type_id, description) values (:name, uuid(:projectId), uuid(:typeId), :desc)", data, keyHolder)
 //        var result: Int = namedParameterJdbcTemplate!!.update("insert into test(val1, val2) values (:one, :two)", data)
-        println(result)
+        val scriptId: String = keyHolder.keyList.get(0).get("id").toString()
+        return getScriptById(script.projectId!!, scriptId)!!
     }
 
 }

@@ -24,12 +24,20 @@ class Script {
     @JsonIgnore
     var scriptType: ScriptType? = null
 
-    var lines: List<Line>? = null
+    var lines: List<Line>? = arrayListOf()
 
-    var rolesMeta: List<RoleMeta> = arrayListOf(RoleMeta("Forteller", "Sitter bak lukket vindu", "Asgeir"), RoleMeta("Regissor", "Sitter blant publikum og er dyktig imponert", "Jonathan"))
+    var rolesMeta: List<RoleMeta>? = arrayListOf()
 
     constructor(id: String, name: String, description: String, type: String, projectId: String, scriptTypeId: String) {
         this.id = id
+        this.name = name
+        this.description = description
+        this.type = type
+        this.projectId = projectId
+        this.scriptTypeId = scriptTypeId
+    }
+
+    constructor(name: String, description: String, type: String, projectId: String, scriptTypeId: String) {
         this.name = name
         this.description = description
         this.type = type
