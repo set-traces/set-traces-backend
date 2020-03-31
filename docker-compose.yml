@@ -1,7 +1,7 @@
 version: '3'
 services:
   backend:
-    image: "settraces/backend:latest"
+    image: "settraces/backend:dev"
     env_file:
       backend.env
     ports:
