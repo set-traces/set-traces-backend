@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
 class DevOpsController {
 
+    /**
+     * @api {get} /version Version
+     * @apiName Version
+     * @apiGroup devops
+     */
     @GetMapping("/version")
     fun getVersion(): VersionResponse {
         return VersionResponse(1, 1, 0)

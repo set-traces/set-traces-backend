@@ -1,6 +1,16 @@
 define({ "api": [
   {
     "type": "get",
+    "url": "/version",
+    "title": "Version",
+    "name": "Version",
+    "group": "devops",
+    "version": "0.0.0",
+    "filename": "src/main/kotlin/com/settraces/settracesbackend/devops/DevOpsController.kt",
+    "groupTitle": "devops"
+  },
+  {
+    "type": "get",
     "url": "/project/",
     "title": "Get all projects",
     "name": "All_Projects",
