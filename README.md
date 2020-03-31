@@ -9,7 +9,7 @@ Remember to check out our fabules frontend!
 
 ## How to:
 Want to contribute to our backend? Fork this repo and create a pull request. 
-Setup to environment for development? Clone this repo. 
+Setup to environment for development? Clone this repo: https://github.com/set-traces/backend-runtime
 
 Running both database and backend with docker:
 ```./gradlew build
