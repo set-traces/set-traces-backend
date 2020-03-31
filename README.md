@@ -19,7 +19,7 @@ Running both database and backend with docker:
 
 Running only database
 ```
-  docker-compose run database
+  docker-compose run --service-ports database
 ```
 
 Running only backend:
