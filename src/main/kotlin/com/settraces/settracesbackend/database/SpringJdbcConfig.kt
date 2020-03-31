@@ -30,7 +30,7 @@ class SpringJdbcConfig {
             dataSource.password = "devpass"
         } else {        // local
             println("using local db")
-            dataSource.url = "jdbc:postgresql://localhost:5432/stdev" // jdbc:postgresql://localhost:5432/settraces
+            dataSource.url = "jdbc:postgresql://localhost:5432/settraces" // jdbc:postgresql://localhost:5432/settraces
             dataSource.username = "settracesdev"
             dataSource.password = "devpass"
         }
