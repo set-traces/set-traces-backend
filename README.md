@@ -7,7 +7,7 @@ Therefor, we desided to create a saas (Script as a service) to help Abakusrevyen
 Remember to check out our fabules frontend!
 
 
-## Howoto:
+## How to:
 Want to contribute to our backend? Fork this repo and create a pull request. 
 Setup to environment for development? Clone this repo. 
 
