@@ -41,8 +41,8 @@ class ProjectController {
     }
 
     /**
-     * @api {get} /project/ Get all projects
-     * @apiName All Projects
+     * @api {get} /project/{{projectId}} Get project by id
+     * @apiName Project
      * @apiGroup project
      */
     @GetMapping("/{projectId}")

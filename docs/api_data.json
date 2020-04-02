@@ -73,6 +73,16 @@
     "groupTitle": "project"
   },
   {
+    "type": "get",
+    "url": "/project/{{projectId}}",
+    "title": "Get project by id",
+    "name": "Project",
+    "group": "project",
+    "version": "0.0.0",
+    "filename": "src/main/kotlin/com/settraces/settracesbackend/project/controllers/ProjectController.kt",
+    "groupTitle": "project"
+  },
+  {
     "type": "post",
     "url": "/project/{{projectId}}/script/{{scriptId}}/line/",
     "title": "Create new line in script",
