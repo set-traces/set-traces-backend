@@ -66,7 +66,10 @@ class ProjectController {
     }
 
     /**
-
+     * @api {put} /{projectId}/script/{scriptId}/name Change name of script
+     * @apiName Change name of script
+     * @apiParam {String} name
+     * @apiGroup script
      */
     @PutMapping("/{projectId}/script/{scriptId}/name")
     fun changeName(@PathVariable projectId: @NotBlank String, @PathVariable scriptId: @NotBlank String, @RequestBody changeScriptNameRequest: @Valid ChangeScriptNameRequest): Boolean {
