@@ -73,8 +73,20 @@ class ProjectController {
      */
     @PutMapping("/{projectId}/script/{scriptId}/name")
     fun changeName(@PathVariable projectId: @NotBlank String, @PathVariable scriptId: @NotBlank String, @RequestBody changeScriptNameRequest: @Valid ChangeScriptNameRequest): Boolean {
-        println(changeScriptNameRequest.name)
         scriptDb!!.updateNameForScript(projectId, scriptId, changeScriptNameRequest.name)
+        return true
+    }
+
+    /**
+     * @api {put} /{projectId}/script/{scriptId}/description Change description of script
+     * @apiName Change description of script
+     * @apiParam {String} description
+     * @apiGroup script
+     */
+    @PutMapping("/{projectId}/script/{scriptId}/description")
+    fun changeDesc(@PathVariable projectId: @NotBlank String, @PathVariable scriptId: @NotBlank String, @RequestBody changeScriptDescRequest: @Valid ChangeScriptDescRequest): Boolean {
+        println("saving desc")
+        scriptDb!!.updateDescriptionForScript(projectId, scriptId, changeScriptDescRequest.description)
         return true
     }
 

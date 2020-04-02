@@ -84,6 +84,29 @@ define({ "api": [
   },
   {
     "type": "put",
+    "url": "/{projectId}/script/{scriptId}/description",
+    "title": "Change description of script",
+    "name": "Change_description_of_script",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "group": "script",
+    "version": "0.0.0",
+    "filename": "src/main/kotlin/com/settraces/settracesbackend/project/controllers/ProjectController.kt",
+    "groupTitle": "script"
+  },
+  {
+    "type": "put",
     "url": "/{projectId}/script/{scriptId}/name",
     "title": "Change name of script",
     "name": "Change_name_of_script",

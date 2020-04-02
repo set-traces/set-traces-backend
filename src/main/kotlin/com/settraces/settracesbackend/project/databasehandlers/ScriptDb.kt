@@ -100,4 +100,9 @@ class ScriptDb {
         var res = namedParameterJdbcTemplate!!.update("update scripts set name=:name WHERE id=uuid(:scriptId)", MapSqlParameterSource().addValue("name", name).addValue("scriptId", scriptId))
         return res == 1
     }
+
+    fun updateDescriptionForScript(projectId: String, scriptId: String, description: String): Boolean {
+        var res = namedParameterJdbcTemplate!!.update("update scripts set description=:desc WHERE id=uuid(:scriptId)", MapSqlParameterSource().addValue("desc", description).addValue("scriptId", scriptId))
+        return res == 1
+    }
 }
