@@ -66,6 +66,16 @@ class ProjectController {
     }
 
     /**
+
+     */
+    @PutMapping("/{projectId}/script/{scriptId}/name")
+    fun changeName(@PathVariable projectId: @NotBlank String, @PathVariable scriptId: @NotBlank String, @RequestBody changeScriptNameRequest: @Valid ChangeScriptNameRequest): Boolean {
+        println(changeScriptNameRequest.name)
+        scriptDb!!.updateNameForScript(projectId, scriptId, changeScriptNameRequest.name)
+        return true
+    }
+
+    /**
      * @api {post} /project/{projectId}/type/ Create new script type (sketch, song, etc)
      * @apiName Create new script type (sketch, song, etc)
      * @apiGroup project

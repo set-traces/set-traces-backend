@@ -95,4 +95,9 @@ class ScriptDb {
     fun getRoleMetaById(id: String): RoleMeta? {
         return namedParameterJdbcTemplate!!.queryForObject("select * from playing_roles pr left join actors a on a.id = pr.actor_id where pr.id=uuid(:id)", MapSqlParameterSource().addValue("id", id), RoleMetaMapper())
     }
+
+    fun updateNameForScript(projectId: String, scriptId: String, name: String): Boolean {
+        var res = namedParameterJdbcTemplate!!.update("update scripts set name=:name WHERE id=uuid(:scriptId)", MapSqlParameterSource().addValue("name", name).addValue("scriptId", scriptId))
+        return res == 1
+    }
 }
