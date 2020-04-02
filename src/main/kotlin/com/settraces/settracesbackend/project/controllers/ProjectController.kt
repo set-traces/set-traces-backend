@@ -13,6 +13,7 @@ import com.settraces.settracesbackend.project.payload.resposne.ScriptResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.NotBlank
 
 
 @CrossOrigin(origins = ["*"], maxAge = 3600)
@@ -38,6 +39,17 @@ class ProjectController {
     fun getAll(): List<Project> {
         return projectDb!!.getAll()
     }
+
+    /**
+     * @api {get} /project/ Get all projects
+     * @apiName All Projects
+     * @apiGroup project
+     */
+    @GetMapping("/{projectId}")
+    fun getProject(@PathVariable projectId: @NotBlank String): Project? {
+        return projectDb!!.getProjectById(projectId)
+    }
+
 
     /**
      * @api {post} /project/ Create new project
