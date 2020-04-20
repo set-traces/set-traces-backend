@@ -62,7 +62,10 @@ class ProjectController {
     @PostMapping("")
     fun newProject(@RequestBody newProjectRequest: @Valid NewProjectRequest): Project? {
         val project: Project = Project(newProjectRequest.name, newProjectRequest.description)
-        return projectDb!!.create(project)
+        val result: Project? = projectDb!!.create(project)
+        val newScriptType: ScriptType = ScriptType("Sketch", result!!.id)
+        scriptTypeDb!!.create(newScriptType)
+        return result
     }
 
     /**
