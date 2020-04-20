@@ -25,6 +25,6 @@ class DevOpsController {
      */
     @GetMapping("/version")
     fun getVersion(): VersionResponse {
-        return VersionResponse(1, 2, 0)
+        return VersionResponse(1, 3, 0)
     }
 }
