@@ -1,11 +1,8 @@
 package com.settraces.settracesbackend.ws
 
+import com.settraces.settracesbackend.project.wsevents.ProjectEvent
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.messaging.simp.SimpMessagingTemplate
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 
@@ -15,13 +12,21 @@ import java.util.*
 class FloodController {
 
     @Autowired
-    private val msgTemplate: SimpMessagingTemplate? = null
+    val webSocketHandler: WebSocketHandler? = null
+
+    @PostMapping("/test")
+    fun test() : String {
+        webSocketHandler!!.sendToProject("jake", ProjectEvent(Events.CHANGE_NAME, "jake", "Set Traces"))
+        return "yes"
+    }
 
     @GetMapping("/test")
-    fun test() : String {
-        msgTemplate!!.convertAndSend("/topic/messages",OutputMessage("admin", "This shit is working", Date().toString()))
-        println("test")
-        return "yes"
+    fun t() : List<String> {
+        val list: ArrayList<String> = arrayListOf()
+        for (s: WsClient in WebSocketHandler.sessions) {
+            list.add(s.id)
+        }
+        return list
     }
 
 }
