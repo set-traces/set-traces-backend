@@ -32,3 +32,6 @@ out/
 .vscode/
 
 .DS_Store
+
+### set traces spesific ###
+dep_docs.sh
